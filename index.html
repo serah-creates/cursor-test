@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASTEROIDS</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="game-container">
+    <canvas id="game-canvas" width="800" height="600"></canvas>
+    <div id="hud">
+      <div class="hud-item">
+        <span class="hud-label">SCORE</span>
+        <span id="score">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">HIGH</span>
+        <span id="high-score">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">LIVES</span>
+        <span id="lives"></span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">LEVEL</span>
+        <span id="level">1</span>
+      </div>
+    </div>
+    <div id="overlay" class="hidden">
+      <div id="overlay-content">
+        <h1 id="overlay-title">ASTEROIDS</h1>
+        <p id="overlay-subtitle"></p>
+        <div id="controls-help">
+          <p><kbd>←</kbd> <kbd>→</kbd> Rotate &nbsp; <kbd>↑</kbd> Thrust</p>
+          <p><kbd>SPACE</kbd> Fire &nbsp; <kbd>SHIFT</kbd> Hyperspace</p>
+          <p><kbd>P</kbd> Pause &nbsp; Press any key to start</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
