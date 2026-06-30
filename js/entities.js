@@ -1,13 +1,13 @@
 import { TAU, rand, wrapPosition, polygonVertices, rotatePoint, circlePolygonCollision } from './utils.js';
-import { speed, timer } from './config.js';
+import { scale, scaleTimer } from './config.js';
 
 export class Ship {
   constructor(x, y) {
     this.reset(x, y);
     this.radius = 12;
-    this.thrustPower = speed(0.15);
-    this.rotationSpeed = speed(0.08);
-    this.maxSpeed = speed(8);
+    this.thrustPower = scale(0.15);
+    this.rotationSpeed = scale(0.08);
+    this.maxSpeed = scale(8);
     this.friction = 0.996;
     this.invulnerableTime = 0;
     this.blinkTimer = 0;
@@ -113,9 +113,9 @@ export class Ship {
 }
 
 const ASTEROID_SIZES = {
-  large: { radius: 40, speed: speed(1.2), score: 20, next: 'medium', verts: 10 },
-  medium: { radius: 25, speed: speed(2.0), score: 50, next: 'small', verts: 8 },
-  small: { radius: 12, speed: speed(3.0), score: 100, next: null, verts: 6 },
+  large: { radius: 40, speed: scale(1.2), score: 20, next: 'medium', verts: 10 },
+  medium: { radius: 25, speed: scale(2.0), score: 50, next: 'small', verts: 8 },
+  small: { radius: 12, speed: scale(3.0), score: 100, next: null, verts: 6 },
 };
 
 export class Asteroid {
@@ -128,7 +128,7 @@ export class Asteroid {
     this.score = config.score;
     this.nextSize = config.next;
     this.angle = rand(0, TAU);
-    this.rotationSpeed = rand(-speed(0.02), speed(0.02));
+    this.rotationSpeed = rand(-scale(0.02), scale(0.02));
     const speed = config.speed * speedMult;
     const dir = rand(0, TAU);
     this.vx = Math.cos(dir) * speed;
@@ -193,9 +193,9 @@ export class Bullet {
   constructor(x, y, angle) {
     this.x = x;
     this.y = y;
-    this.vx = Math.cos(angle) * speed(10);
-    this.vy = Math.sin(angle) * speed(10);
-    this.life = timer(40);
+    this.vx = Math.cos(angle) * scale(10);
+    this.vy = Math.sin(angle) * scale(10);
+    this.life = scaleTimer(40);
     this.dead = false;
     this.radius = 2;
   }
@@ -221,10 +221,10 @@ export class Particle {
     this.x = x;
     this.y = y;
     const dir = rand(0, TAU);
-    const spd = rand(speed(0.5), speed(speedVal));
+    const spd = rand(scale(0.5), scale(speedVal));
     this.vx = Math.cos(dir) * spd;
     this.vy = Math.sin(dir) * spd;
-    this.life = timer(life);
+    this.life = scaleTimer(life);
     this.maxLife = life;
     this.dead = false;
   }
@@ -252,19 +252,19 @@ export class UFO {
     this.y = rand(40, height - 40);
     this.direction = Math.random() < 0.5 ? 1 : -1;
     this.x = this.direction === 1 ? -30 : width + 30;
-    this.vx = this.direction * rand(speed(1.5), speed(2.5));
-    this.vy = rand(speed(-0.5), speed(0.5));
+    this.vx = this.direction * rand(scale(1.5), scale(2.5));
+    this.vy = rand(scale(-0.5), scale(0.5));
     this.radius = 14;
     this.dead = false;
-    this.shootTimer = rand(timer(60), timer(180));
+    this.shootTimer = rand(scaleTimer(60), scaleTimer(180));
     this.wobble = 0;
     this.score = 200;
   }
 
   update() {
     this.x += this.vx;
-    this.y += this.vy + Math.sin(this.wobble) * speed(0.5);
-    this.wobble += speed(0.05);
+    this.y += this.vy + Math.sin(this.wobble) * scale(0.5);
+    this.wobble += scale(0.05);
     this.shootTimer--;
 
     if ((this.direction === 1 && this.x > this.width + 40) ||
@@ -275,7 +275,7 @@ export class UFO {
 
   canShoot() {
     if (this.shootTimer <= 0) {
-      this.shootTimer = rand(timer(90), timer(240));
+      this.shootTimer = rand(scaleTimer(90), scaleTimer(240));
       return true;
     }
     return false;
@@ -305,9 +305,9 @@ export class UFOBullet {
     this.x = x;
     this.y = y;
     const angle = Math.atan2(targetY - y, targetX - x);
-    this.vx = Math.cos(angle) * speed(4);
-    this.vy = Math.sin(angle) * speed(4);
-    this.life = timer(120);
+    this.vx = Math.cos(angle) * scale(4);
+    this.vy = Math.sin(angle) * scale(4);
+    this.life = scaleTimer(120);
     this.dead = false;
     this.radius = 3;
   }

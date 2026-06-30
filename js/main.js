@@ -1,6 +1,6 @@
 import { Ship, Asteroid, Bullet, Particle, UFO, UFOBullet } from './entities.js';
 import { rand, randInt } from './utils.js';
-import { speed, timer, GAME_SPEED } from './config.js';
+import { scale, scaleTimer, GAME_SPEED } from './config.js';
 import {
   initAudio, playShoot, playExplosion, playThrust, stopThrust,
   playExtraLife, playUfo
@@ -35,7 +35,7 @@ let lives = 3;
 let level = 1;
 let shootCooldown = 0;
 let hyperspaceCooldown = 0;
-let ufoTimer = timer(600);
+let ufoTimer = scaleTimer(600);
 let extraLifeScore = 10000;
 let frameCount = 0;
 
@@ -77,7 +77,7 @@ function startGame() {
   particles = [];
   ufos = [];
   ufoBullets = [];
-  ufoTimer = timer(600);
+  ufoTimer = scaleTimer(600);
   state = STATE.PLAYING;
   hideOverlay();
   spawnAsteroids();
@@ -90,7 +90,7 @@ function spawnAsteroids() {
   for (let i = 0; i < count; i++) {
     let a;
     do {
-      a = Asteroid.createRandom('large', W, H, speed(1 + level * 0.08));
+      a = Asteroid.createRandom('large', W, H, scale(1 + level * 0.08));
     } while (a.x > W / 2 - 100 && a.x < W / 2 + 100 &&
              a.y > H / 2 - 100 && a.y < H / 2 + 100);
     asteroids.push(a);
@@ -104,7 +104,7 @@ function nextLevel() {
   bullets = [];
   ufoBullets = [];
   spawnAsteroids();
-  ufoTimer = timer(600);
+  ufoTimer = scaleTimer(600);
   updateHUD();
 }
 
@@ -137,7 +137,7 @@ function handleInput() {
   if (keys['Space'] && shootCooldown <= 0 && bullets.filter(b => !b.dead).length < 4) {
     const tip = ship.getVertices()[0];
     bullets.push(new Bullet(tip.x, tip.y, ship.angle));
-    shootCooldown = timer(12);
+    shootCooldown = scaleTimer(12);
     playShoot();
   }
 
@@ -145,7 +145,7 @@ function handleInput() {
 
 function triggerHyperspace() {
   if (hyperspaceCooldown > 0) return;
-  hyperspaceCooldown = timer(120);
+  hyperspaceCooldown = scaleTimer(120);
   ship.x = rand(40, W - 40);
   ship.y = rand(40, H - 40);
   ship.vx = 0;
@@ -269,7 +269,7 @@ function updateUFOs() {
   ufoTimer--;
   if (ufoTimer <= 0 && ufos.filter(u => !u.dead).length === 0) {
     ufos.push(new UFO(W, H));
-    ufoTimer = randInt(timer(600), timer(1200));
+    ufoTimer = randInt(scaleTimer(600), scaleTimer(1200));
     playUfo();
   }
 
@@ -317,7 +317,7 @@ function update() {
 function drawStarfield() {
   ctx.fillStyle = '#fff';
   for (let i = 0; i < 80; i++) {
-    const x = ((i * 137.5 + frameCount * speed(0.1 + (i % 3) * 0.05)) % W);
+    const x = ((i * 137.5 + frameCount * scale(0.1 + (i % 3) * 0.05)) % W);
     const y = ((i * 97.3) % H);
     const brightness = 0.2 + (i % 5) * 0.15;
     ctx.globalAlpha = brightness;

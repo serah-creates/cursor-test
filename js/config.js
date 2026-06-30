@@ -1,9 +1,9 @@
 export const GAME_SPEED = 0.8;
 
-export function speed(value) {
+export function scale(value) {
   return value * GAME_SPEED;
 }
 
-export function timer(frames) {
+export function scaleTimer(frames) {
   return Math.round(frames / GAME_SPEED);
 }
