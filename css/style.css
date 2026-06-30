@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", Courier, monospace;
+  overflow: hidden;
+}
+
+#game-container {
+  position: relative;
+  border: 2px solid #333;
+  box-shadow: 0 0 40px rgba(0, 255, 100, 0.15);
+}
+
+#game-canvas {
+  display: block;
+  background: #000;
+  cursor: crosshair;
+}
+
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  pointer-events: none;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.hud-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.hud-label {
+  font-size: 10px;
+  color: #888;
+  letter-spacing: 3px;
+}
+
+#lives {
+  font-size: 18px;
+  letter-spacing: 4px;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+}
+
+#overlay.hidden {
+  display: none;
+}
+
+#overlay-content h1 {
+  font-size: 48px;
+  letter-spacing: 12px;
+  margin-bottom: 16px;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+#overlay-subtitle {
+  font-size: 16px;
+  letter-spacing: 4px;
+  margin-bottom: 32px;
+  color: #aaa;
+}
+
+#controls-help {
+  font-size: 13px;
+  line-height: 2;
+  color: #666;
+}
+
+#controls-help kbd {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid #444;
+  border-radius: 3px;
+  background: #111;
+  color: #aaa;
+  font-family: inherit;
+  font-size: 12px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
