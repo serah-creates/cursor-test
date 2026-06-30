@@ -22,7 +22,12 @@ const STATE = { TITLE: 'title', PLAYING: 'playing', PAUSED: 'paused', DEAD: 'dea
 
 const keys = {};
 let state = STATE.TITLE;
-let ship, asteroids, bullets, particles, ufos, ufoBullets;
+let ship = null;
+let asteroids = [];
+let bullets = [];
+let particles = [];
+let ufos = [];
+let ufoBullets = [];
 let score = 0;
 let highScore = parseInt(localStorage.getItem('asteroids-high') || '0', 10);
 let lives = 3;
